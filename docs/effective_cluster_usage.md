@@ -15,3 +15,15 @@ Pre-requisites:
         - remote-ftp
         - language-stata
 - If you want to use Python at any point, download and install [miniconda](https://docs.conda.io/en/latest/miniconda.html)
+
+
+Workshop Topics:
+- Basic cluster usage
+    + Terminal usage
+    + How to submit jobs on the cluster and manage them
++ Project folder structures and data management
+    + How to achieve sanity when your project's folders and data are a mess (i.e. restructuring your project's folders)
+- Tips / tricks:
+	+ How to write code that other people can run
+    + How to run Python / R / Stata code on the cluster without explicitly having to open the cluster's interface
+    + Brief intro to parallel computing
