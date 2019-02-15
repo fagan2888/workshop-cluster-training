@@ -1,10 +1,11 @@
 ## Workshop on Effective Cluster Usage
 
-When: Wednesday, March 27, 2019. 3-4 PM
-Where: Perkins
+Wednesday, March 27, 2019. 3-4 PM. Perkins.
 
-Pre-requisites:
-- You should have an account on the [RCE Cluster](https://rce-docs.hmdc.harvard.edu/). If you do not have an account, look at [_Accessing the RCE_](https://rce-docs.hmdc.harvard.edu/book/accessing-rce-0) for instructions on how to obtain one.
+
+### Pre-requisites:
+
+- You should have an account on the [RCE Cluster](https://rce-docs.hmdc.harvard.edu/). If you do not have an account, look at [Accessing the RCE](https://rce-docs.hmdc.harvard.edu/book/accessing-rce-0) for instructions on how to obtain one.
 - You should be able to login to the cluster using the graphical client [instructions here](https://rce-docs.hmdc.harvard.edu/nx4)
 - If you're using Windows, download and install [PuTTY](https://www.putty.org/)
 - Download and install [FileZilla](https://rce-docs.hmdc.harvard.edu/book/installing-filezilla)
@@ -14,10 +15,11 @@ Pre-requisites:
     + If you already know how to, go ahead and install the following packages for Atom:
         - remote-ftp
         - language-stata
-- If you want to use Python at any point, download and install [miniconda](https://docs.conda.io/en/latest/miniconda.html)
+- If you want to use Python at any point, download and install [miniconda](https://docs.conda.io/en/latest/miniconda.html). Don't do this step if you already have Anaconda.
 
 
-Workshop Topics:
+### Workshop Topics:
+
 - Basic cluster usage
     + Terminal usage
     + How to submit jobs on the cluster and manage them

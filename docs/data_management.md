@@ -1,21 +1,23 @@
 ## Project Data Management
 
 #### Basic folder structure
+```
 data/
     data_1/
         raw/                    ---- Raw, immutable files
             file_1
             README.md           ---- Describes file_1: sources, quirks, codebook
         processed/              ---- Cleaned, reshaped, filtered files
-            file_1_cleaned
-            README.md           ---- Contains description of file_1_cleaned
+            file_1
+            README.md           ---- Describes file_1, the cleaned version. Include codebook if required
 
 user_1/
-    src/
-    proj/
+    src/                        ---- Scripts / do-files are stored here
+    proj/                       ---- Notebooks, experimental do-files stored here
     figs/
     tables/
     documents/
+```
 
 #### Example folder structure
 ```
