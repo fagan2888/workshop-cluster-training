@@ -8,7 +8,10 @@
     - Naming convention
     - Documentation present / absent
     - Versioning
+    - Presence of PII
 - Data management plan for new projects:
     - https://libraries.mit.edu/data-management/plan/write/
 - Depositing data: Dataverse, ICPSR
 - Advanced metadata: DDI XML formats
+- Share code for restructuring data (before / after)
+- Share code for auto-generating codebooks

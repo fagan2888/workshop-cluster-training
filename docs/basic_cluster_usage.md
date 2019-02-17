@@ -12,6 +12,10 @@ The RCE cluster runs on Linux. This section discusses some commands that might b
 - Open a Vim text editor: `vi <filename>` (There are a bunch of vim specific commands you need to learn to use Vim)
 - Output the contents of a text file: `cat <filename>`
 - Output the first few lines of a file: `head <filename>`
+- Copy file: `cp <old_file_path> <new_file_path>`
+- Move file: `mv <old_file_path> <new_file_path>`
+- Rename file: `mv <old_file_name> <new_file_name>`
+- Remove file: `rm <file_name>`
 
 For more commonly used commands, [here's](https://www.cheatography.com/davechild/cheat-sheets/linux-command-line/) a cheatsheet
 

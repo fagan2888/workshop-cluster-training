@@ -7,7 +7,7 @@ Adapted from MIT Libraries' [slides](https://www.dropbox.com/s/e8j0ttbd517yap2/Q
 
 - Backups
     - Cluster data often backed up, but ensure backup frequency is sufficient
-    - Best solution: CrashPlan - cloud backups
+    - Solution: external hard drive (local) + CrashPlan (cloud)
 - File organization and naming
     - Create a shared system, *follow it*.
     - Consider date conventions (YYYY-MM-DD), special characters, versioning
@@ -26,13 +26,13 @@ Adapted from MIT Libraries' [slides](https://www.dropbox.com/s/e8j0ttbd517yap2/Q
     - Other aspects: Licensing, citation, ethical restrictions, legal restrictions, funder requirements
 - Data security
     - IRB where required
-    - Don't take data off cluster, esp. if sensitive
+    - Don't take data off cluster, especially if sensitive
 
 ### Checklist
 
-Follow the checklist available at page 16 (Appendix A) of ICPSR's [booklet](https://www.icpsr.umich.edu/files/datamanagement/DataManagementPlans-All.pdf)
-
-Tool available: [DMPTool](https://dmptool.org). Note: You don't have to "submit" the data management plan to a funder through DMPTool unless you're explicitly asked to.
+- At a minimum, follow the checklist available at page 17 (Appendix A) of ICPSR's [booklet](https://www.icpsr.umich.edu/files/datamanagement/DataManagementPlans-All.pdf)
+- Consider the slightly more detailed project start-and-end checklists from [MIT](https://www.dropbox.com/s/fpj88gzwz291aec/Handout_dataMgmtChecklist.pdf?dl=0)
+- Tool available for Data Management Planning: [DMPTool](https://dmptool.org). Note that you don't have to "submit" the data management plan to a funder through DMPTool unless you're explicitly asked to by the funder.
 
 ### Basic folder structure
 ```
