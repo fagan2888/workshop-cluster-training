@@ -1,9 +1,8 @@
-## Workshop on Effective Cluster Usage
+## Workshop on Effective Cluster Usage and Data Management
 
 Wednesday, March 27, 2019. 3-4 PM. Perkins.
 
-
-### Pre-requisites:
+### Pre-requisites
 
 - You should have an account on the [RCE Cluster](https://rce-docs.hmdc.harvard.edu/). If you do not have an account, look at [Accessing the RCE](https://rce-docs.hmdc.harvard.edu/book/accessing-rce-0) for instructions on how to obtain one.
 - You should be able to login to the cluster using the graphical client [instructions here](https://rce-docs.hmdc.harvard.edu/nx4)
@@ -18,7 +17,7 @@ Wednesday, March 27, 2019. 3-4 PM. Perkins.
 - If you want to use Python at any point, download and install [miniconda](https://docs.conda.io/en/latest/miniconda.html). Don't do this step if you already have Anaconda.
 
 
-### Workshop Topics:
+### Workshop Topics
 
 - Basic cluster usage
     + Terminal usage

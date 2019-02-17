@@ -6,8 +6,8 @@ The RCE cluster runs on Linux. This section discusses some commands that might b
 - Change directory: `cd <path to directory>`
 - Create new folder in current directory: `mkdir <name of new folder>`
 - List contents of current directory: `ls`
-    + List contents of current directory, including hidden files: `ls -al`
-    + List contents of current directory, with file sizes in a human readable format: `ls -lh`
+    + Including hidden files: `ls -al`
+    + With file sizes in KB/MB/GB instead of bytes: `ls -alh`
 - Create an empty file: `touch <filename>`
 - Open a Vim text editor: `vi <filename>` (There are a bunch of vim specific commands you need to learn to use Vim)
 - Output the contents of a text file: `cat <filename>`

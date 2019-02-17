@@ -1,0 +1,6 @@
+site_name: Cluster Training
+theme: readthedocs
+nav:
+    - Home: index.md
+    - Data Management: data_management.md
+    - Cluster Training: basic_cluster_usage.md

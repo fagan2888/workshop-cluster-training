@@ -1,6 +1,40 @@
-## Project Data Management
+# Project Data Management
 
-#### Basic folder structure
+## Planning
+
+### Essentials
+Adapted from MIT Libraries' [slides](https://www.dropbox.com/s/e8j0ttbd517yap2/QuickDirtyDataMgmt_Slides_MIT.pdf?dl=0) released under a [CC-BY license](https://creativecommons.org/licenses/by/4.0/)
+
+- Backups
+    - Cluster data often backed up, but ensure backup frequency is sufficient
+    - Best solution: CrashPlan - cloud backups
+- File organization and naming
+    - Create a shared system, *follow it*.
+    - Consider date conventions (YYYY-MM-DD), special characters, versioning
+- Documentation (README files)
+    - Too much documentation > not enough documentation
+    - Document your system aka provide orientation documents
+    - Template
+        - Title
+        - Source with link
+        - Added by (project user with email)
+        - Date added
+        - Description
+        - Codebook
+        - Limitations
+        - Other notes
+    - Other aspects: Licensing, citation, ethical restrictions, legal restrictions, funder requirements
+- Data security
+    - IRB where required
+    - Don't take data off cluster, esp. if sensitive
+
+### Checklist
+
+Follow the checklist available at page 16 (Appendix A) of ICPSR's [booklet](https://www.icpsr.umich.edu/files/datamanagement/DataManagementPlans-All.pdf)
+
+Tool available: [DMPTool](https://dmptool.org). Note: You don't have to "submit" the data management plan to a funder through DMPTool unless you're explicitly asked to.
+
+### Basic folder structure
 ```
 data/
     data_1/
@@ -19,7 +53,7 @@ user_1/
     documents/
 ```
 
-#### Example folder structure
+### Example folder structure
 ```
 data/
     nightlights/
