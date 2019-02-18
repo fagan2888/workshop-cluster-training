@@ -38,10 +38,11 @@ The RCE cluster uses a framework called HTCondor. The following commands can be 
 
 ## Stata using X-forwarding
 
+### Setup
+
 **MacOS Instructions:**
 
 - Install [Xquartz](https://www.xquartz.org/)
-- In your `ssh` commands, use flag `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
 - Edit `~/.ssh/config` and add:
 ```
     Host *
@@ -58,12 +59,26 @@ The RCE cluster uses a framework called HTCondor. The following commands can be 
 
 **Linux Instructions:**
 
-- X11 is pre-installed
-- In your `ssh` commands, use flag `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
+- No setup required! X11 is pre-installed
 
-**Steps to run Stata using X-forwarding**
+### Running Stata
 
 - `ssh` to the RCE, adding a `-Y` flag to the command: `ssh -Y <username>@rce.hmdc.harvard.edu`
+    + Note: You can use `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
+    + `-Y` is less secure, so only use it for applications you recognize (such as Stata)
 - Run the following command: `rce_submit.py -r -graphical -a xstata-mp`
 
 For commonly used commands and introductory tutorials, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).
+
+## Optional Tips
+
+#### Setting up SSH Key Access
+
+If you don't want to type your password each time you SSH (from a computer you trust, of course), set up SSH keys.
+
+Steps (for Linux and MacOS):
+- [Check for existing SSH keys](https://help.github.com/articles/checking-for-existing-ssh-keys/)
+- If you don't have existing keys, [generate a key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+- If you have existing keys, [add to ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent)
+- Upload the key to the remote server, using `ssh-copy-id -i ~/.ssh/id_rsa.pub <username>@rce.hmdc.harvard.edu`
+ 
