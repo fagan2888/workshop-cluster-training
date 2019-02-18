@@ -1,6 +1,6 @@
-## Basic cluster usage
+# Basic cluster usage
 
-### Working with Linux
+## Working with Linux
 The RCE cluster runs on Linux. This section discusses some commands that might be useful for everday cluster usage:
 
 - Change directory: `cd <path to directory>`
@@ -19,7 +19,7 @@ The RCE cluster runs on Linux. This section discusses some commands that might b
 
 For more commonly used commands, [here's](https://www.cheatography.com/davechild/cheat-sheets/linux-command-line/) a cheatsheet
 
-### RCE-Specific Commands
+## RCE-Specific Commands
 The RCE cluster uses a framework called HTCondor. The following commands can be used for any cluster that runs on HTCondor.
 
 - Connect to the RCE login node: `ssh <username>@rce.hmdc.harvard.edu`
@@ -30,9 +30,40 @@ The RCE cluster uses a framework called HTCondor. The following commands can be 
 - Submit jobs: `condor_submit <submit_file_path>` or `condor_submit_util`
 - Remove running jobs: `condor_rm -name "<name of the machine where job is running>" <JobID>`
 
-### Other Relevant Commands
+## Other Relevant Commands
 - Start new tmux session: `tmux new`
 - Re-attach the last tmux session: `tmux a`
 - Kill all running tmux sessions: `tmux kill-server`
 
-For more, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).
+
+## Stata using X-forwarding
+
+**MacOS Instructions:**
+
+- Install [Xquartz](https://www.xquartz.org/)
+- In your `ssh` commands, use flag `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
+- Edit `~/.ssh/config` and add:
+```
+    Host *
+        XAuthLocation /opt/X11/bin/xauth
+        ForwardX11 yes
+        ForwardX11Trusted yes
+```
+
+
+
+**Windows Instructions:**
+
+- In PuTTy, enable X11 forwarding
+
+**Linux Instructions:**
+
+- X11 is pre-installed
+- In your `ssh` commands, use flag `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
+
+**Steps to run Stata using X-forwarding**
+
+- `ssh` to the RCE, adding a `-Y` flag to the command: `ssh -Y <username>@rce.hmdc.harvard.edu`
+- Run the following command: `rce_submit.py -r -graphical -a xstata-mp`
+
+For commonly used commands and introductory tutorials, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).

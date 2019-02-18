@@ -15,3 +15,11 @@
 - Advanced metadata: DDI XML formats
 - Share code for restructuring data (before / after)
 - Share code for auto-generating codebooks
+
+
+Outline:
+- How to connect to the cluster
+- How to manage jobs on the cluster
+- STATA xforwarding
+- Jupyter forwarding
+- Atom file edits
