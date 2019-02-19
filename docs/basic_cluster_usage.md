@@ -77,8 +77,8 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 If you don't want to type your password each time you SSH (from a computer you trust, of course), set up SSH keys.
 
 Steps (for Linux and MacOS):
+
 - [Check for existing SSH keys](https://help.github.com/articles/checking-for-existing-ssh-keys/)
 - If you don't have existing keys, [generate a key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
 - If you have existing keys, [add to ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent)
 - Upload the key to the remote server, using `ssh-copy-id -i ~/.ssh/id_rsa.pub <username>@rce.hmdc.harvard.edu`
- 

@@ -1,5 +1,45 @@
-site_name: Cluster Training
-theme: readthedocs
+# Project
+site_name: CID Data Workshops
+site_description: Workshop on Effective Cluster Usage and Data Management
+site_author: Shreyas Gadgin Matha
+
+# Repository
+repo_name: cid-harvard/workshop-cluster-training
+repo_url: https://github.com/cid-harvard/workshop-cluster-training
+edit_uri: ""
+
+# Theme
+theme:
+    name: material
+    language: en
+    feature:
+        tabs: false
+    palette:
+        primary: indigo
+        accent: indigo
+    font:
+        text: 'Roboto'
+        code: 'Roboto Mono'
+
+# Customization
+extra:
+    social:
+        - type: github-alt
+          link: https://github.com/shreyasgm
+        - type: twitter
+          link: https://twitter.com/shreyasgm
+        - type: linkedin
+          link: https://linkedin.com/in/shreyasgm/
+
+# Markdown extensions
+markdown_extensions:
+    - admonition
+    - codehilite
+        linenums: true
+    - toc:
+        permalink: true
+
+# Navigation structure
 nav:
     - Home: index.md
     - Data Management: data_management.md
