@@ -35,41 +35,6 @@ The RCE cluster uses a framework called HTCondor. The following commands can be 
 - Re-attach the last tmux session: `tmux a`
 - Kill all running tmux sessions: `tmux kill-server`
 
-
-## Stata using X-forwarding
-
-### Setup
-
-**MacOS Instructions:**
-
-- Install [Xquartz](https://www.xquartz.org/)
-- Edit `~/.ssh/config` and add:
-```
-    Host *
-        XAuthLocation /opt/X11/bin/xauth
-        ForwardX11 yes
-        ForwardX11Trusted yes
-```
-
-
-
-**Windows Instructions:**
-
-- In PuTTy, enable X11 forwarding
-
-**Linux Instructions:**
-
-- No setup required! X11 is pre-installed
-
-### Running Stata
-
-- `ssh` to the RCE, adding a `-Y` flag to the command: `ssh -Y <username>@rce.hmdc.harvard.edu`
-    + Note: You can use `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
-    + `-Y` is less secure, so only use it for applications you recognize (such as Stata)
-- Run the following command: `rce_submit.py -r -graphical -a xstata-mp`
-
-For commonly used commands and introductory tutorials, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).
-
 ## Optional Tips
 
 #### Setting up SSH Key Access

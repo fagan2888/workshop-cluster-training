@@ -34,7 +34,7 @@ extra:
 # Markdown extensions
 markdown_extensions:
     - admonition
-    - codehilite
+    - codehilite:
         linenums: true
     - toc:
         permalink: true
@@ -43,4 +43,6 @@ markdown_extensions:
 nav:
     - Home: index.md
     - Data Management: data_management.md
-    - Cluster Training: basic_cluster_usage.md
+    - Cluster Training:
+        - Basic Commands: cluster_usage/basic_cluster_usage.md
+        - Running Stata Remotely: cluster_usage/remote_stata_options.md
