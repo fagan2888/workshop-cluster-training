@@ -40,6 +40,7 @@ markdown_extensions:
         permalink: true
 
 # Google analytics
+google_analytics:
     - 'UA-76189439-3'
     - 'auto'
 
