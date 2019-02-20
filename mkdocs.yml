@@ -39,6 +39,10 @@ markdown_extensions:
     - toc:
         permalink: true
 
+# Google analytics
+    - 'UA-76189439-3'
+    - 'auto'
+
 # Navigation structure
 nav:
     - Home: index.md
