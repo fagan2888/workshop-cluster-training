@@ -22,6 +22,9 @@ theme:
         code: 'Roboto Mono'
 
 # Customization
+extra_css:
+    - 'stylesheets/extra.css'
+# Social
 extra:
     social:
         - type: github-alt

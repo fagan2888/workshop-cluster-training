@@ -1,4 +1,4 @@
-## Workshop on Effective Cluster Usage and Data Management
+# Effective Cluster Usage and Data Management
 
 Wednesday, March 27, 2019. 3-4 PM. Perkins.
 
