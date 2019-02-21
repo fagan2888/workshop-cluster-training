@@ -1,0 +1,13 @@
+.md-typeset {
+  font-size: 150%;
+  line-height: 1.4;
+}
+
+.md-typeset ul li {
+    /* margin-bottom: .35em; */
+    margin-left: 1em;
+}
+
+.md-typeset h1 {
+    font-size: 200%;
+}
