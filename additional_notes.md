@@ -23,3 +23,7 @@ Outline:
 - STATA xforwarding
 - Jupyter forwarding
 - Atom file edits
+
+Remote FTP setup on Atom:
+- install remote_ftp
+- 

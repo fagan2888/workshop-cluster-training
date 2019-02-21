@@ -50,7 +50,9 @@ google_analytics:
 # Navigation structure
 nav:
     - Home: index.md
-    - Data Management: data_management.md
+    - Data Management:
+        - Overview: data_management/data_management.md
+        - Folder structures: data_management/folder_structure.md
     - Cluster Training:
         - Basic Commands: cluster_usage/basic_cluster_usage.md
         - Running Stata Remotely: cluster_usage/remote_stata_options.md

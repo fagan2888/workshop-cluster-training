@@ -7,3 +7,7 @@
     /* margin-bottom: .35em; */
     margin-left: 1em;
 }
+
+.md-typeset h1 {
+    font-size: 200%;
+}
