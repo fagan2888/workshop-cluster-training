@@ -31,6 +31,7 @@ Please perform the following steps **before the workshop**, in the interest of t
         - Planning for a new project
         - Folder structures
         - Best practices and documentation
+        - Scripts for reorganizing existing folders
 - Tips / tricks:
 	+ How to write code that other people can run
     + How to run Python / R / Stata code on the cluster without explicitly having to open the cluster's interface

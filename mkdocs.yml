@@ -37,10 +37,13 @@ extra:
 # Markdown extensions
 markdown_extensions:
     - admonition
+    - footnotes
     - codehilite:
         linenums: true
     - toc:
         permalink: true
+    - pymdownx.tasklist:
+        custom_checkbox: true
 
 # Google analytics
 google_analytics:
