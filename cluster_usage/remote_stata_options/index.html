@@ -133,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#stata-using-x-forwarding" tabindex="1" class="md-skip">
+      <a href="#option-1-x-forwarding" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -384,8 +384,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#stata-using-x-forwarding" title="Stata using X-forwarding" class="md-nav__link">
-    Stata using X-forwarding
+  <a href="#option-1-x-forwarding" title="Option 1: X-forwarding" class="md-nav__link">
+    Option 1: X-forwarding
   </a>
   
     <nav class="md-nav">
@@ -411,8 +411,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#stata-using-jupyter-notebooks" title="Stata using Jupyter Notebooks" class="md-nav__link">
-    Stata using Jupyter Notebooks
+  <a href="#option-2-jupyter-notebooks" title="Option 2: Jupyter Notebooks" class="md-nav__link">
+    Option 2: Jupyter Notebooks
   </a>
   
     <nav class="md-nav">
@@ -427,6 +427,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-3-atom-hydrogen" title="Option 3: Atom + Hydrogen" class="md-nav__link">
+    Option 3: Atom + Hydrogen
+  </a>
   
 </li>
       
@@ -465,8 +472,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#stata-using-x-forwarding" title="Stata using X-forwarding" class="md-nav__link">
-    Stata using X-forwarding
+  <a href="#option-1-x-forwarding" title="Option 1: X-forwarding" class="md-nav__link">
+    Option 1: X-forwarding
   </a>
   
     <nav class="md-nav">
@@ -492,8 +499,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#stata-using-jupyter-notebooks" title="Stata using Jupyter Notebooks" class="md-nav__link">
-    Stata using Jupyter Notebooks
+  <a href="#option-2-jupyter-notebooks" title="Option 2: Jupyter Notebooks" class="md-nav__link">
+    Option 2: Jupyter Notebooks
   </a>
   
     <nav class="md-nav">
@@ -508,6 +515,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-3-atom-hydrogen" title="Option 3: Atom + Hydrogen" class="md-nav__link">
+    Option 3: Atom + Hydrogen
+  </a>
   
 </li>
       
@@ -530,8 +544,11 @@
                 
                   <h1>Running Stata Remotely</h1>
                 
-                <h2 id="stata-using-x-forwarding">Stata using X-forwarding<a class="headerlink" href="#stata-using-x-forwarding" title="Permanent link">&para;</a></h2>
-<p>The typical way of running Stata (or other graphical applications) remotely, this gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery</p>
+                <h2 id="option-1-x-forwarding">Option 1: X-forwarding<a class="headerlink" href="#option-1-x-forwarding" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The typical way of running Stata (or other graphical applications) remotely, X-forwarding gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery</p>
+</div>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
 <p><strong>MacOS:</strong></p>
 <ul>
@@ -555,6 +572,7 @@
 <p><strong>Linux:</strong></p>
 <ul>
 <li>No setup required! X11 is pre-installed</li>
+<li>You might have to edit <code>~/.ssh/config</code> to allow X11 forwarding (same as MacOS)</li>
 </ul>
 <h3 id="running-stata">Running Stata<a class="headerlink" href="#running-stata" title="Permanent link">&para;</a></h3>
 <ul>
@@ -569,11 +587,22 @@
 </td></tr></table>
 
 <ul>
-<li>Run the following command: <code>rce_submit.py -r -graphical -a xstata-mp</code></li>
+<li>Run the RCE provided convenience-command to start STATA jobs, with a graphical interface:</li>
 </ul>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>rce_submit.py -r -graphical -a xstata-mp
+</pre></div>
+</td></tr></table>
+
 <p>For commonly used commands and introductory tutorials, refer to <a href="https://rce-docs.hmdc.harvard.edu/book/rce-docs">RCE documentation</a>.</p>
-<h2 id="stata-using-jupyter-notebooks">Stata using Jupyter Notebooks<a class="headerlink" href="#stata-using-jupyter-notebooks" title="Permanent link">&para;</a></h2>
-<p>Thanks to <a href="https://github.com/kylebarron">Kyle Barron's</a> package <a href="https://kylebarron.github.io/stata_kernel"><code>stata_kernel</code></a>, we can use Stata kernels for Jupyter, allowing us to run Stata remotely with low latency</p>
+<h2 id="option-2-jupyter-notebooks">Option 2: Jupyter Notebooks<a class="headerlink" href="#option-2-jupyter-notebooks" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Thanks to <a href="https://github.com/kylebarron">Kyle Barron's</a> package <a href="https://kylebarron.github.io/stata_kernel"><code>stata_kernel</code></a>, we can use Stata kernels for Jupyter, allowing us to run Stata remotely with low latency.</li>
+<li>However, Jupyter notebooks are not text files, so working with them does not have the do-file editor <em>feel</em> that Stata users might be used to.</li>
+<li>Additionally, Jupyter notebooks are harder to manage using Git</li>
+</ul>
+</div>
 <h3 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>SSH into the cluster, using portforwarding</li>
@@ -655,8 +684,8 @@ jupyter labextension install jupyterlab-stata-highlight
 5
 6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Make a directory somewhere to house the condor scripts</span>
 mkdir ~/condorscripts <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/condorscripts <span class="o">&amp;&amp;</span> mkdir condorlogs
-<span class="c1"># Download scripts from Github Repo</span>
-wget &lt;&gt;
+<span class="c1"># Download Jupyter submission script from Github Repo</span>
+curl -LJO https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
 <span class="c1"># Submit condor script</span>
 condor_submit jupyter.submit
 </pre></div>
@@ -678,6 +707,16 @@ tmux new
 <ul>
 <li>In your browser, go to <code>localhost:8889</code>, and voila!</li>
 </ul>
+<h2 id="option-3-atom-hydrogen">Option 3: Atom + Hydrogen<a class="headerlink" href="#option-3-atom-hydrogen" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The text editor Atom, using the package Hydrogen, allows you to run code interactively, inspect data and plot using Jupyter kernels. This method uses <a href="https://kylebarron.github.io/stata_kernel"><code>stata_kernel</code></a> as well.</li>
+<li>Recommended option! Provides a do-file like <em>feel</em>, with low latency (i.e. no stuttering).</li>
+</ul>
+</div>
+<p><strong>TODO</strong></p>
+<p>Summarise <a href="https://nteract.gitbooks.io/hydrogen/docs/Usage/RemoteKernelConnection.html">documentation</a></p>
                 
                   
                 
