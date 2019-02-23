@@ -1,6 +1,7 @@
-## Stata using X-forwarding
+## Option 1: X-forwarding
 
-The typical way of running Stata (or other graphical applications) remotely, this gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery
+!!! note
+    The typical way of running Stata (or other graphical applications) remotely, X-forwarding gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery
 
 ### Setup
 
@@ -22,6 +23,7 @@ The typical way of running Stata (or other graphical applications) remotely, thi
 **Linux:**
 
 - No setup required! X11 is pre-installed
+- You might have to edit `~/.ssh/config` to allow X11 forwarding (same as MacOS)
 
 ### Running Stata
 
@@ -31,14 +33,20 @@ The typical way of running Stata (or other graphical applications) remotely, thi
 ```bash
 ssh -Y <username>@rce.hmdc.harvard.edu
 ```
-- Run the following command: `rce_submit.py -r -graphical -a xstata-mp`
+- Run the RCE provided convenience-command to start STATA jobs, with a graphical interface:
+```
+rce_submit.py -r -graphical -a xstata-mp
+```
 
 For commonly used commands and introductory tutorials, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).
 
 
-## Stata using Jupyter Notebooks
+## Option 2: Jupyter Notebooks
 
-Thanks to [Kyle Barron's](https://github.com/kylebarron) package [`stata_kernel`](https://kylebarron.github.io/stata_kernel), we can use Stata kernels for Jupyter, allowing us to run Stata remotely with low latency
+!!! note
+    - Thanks to [Kyle Barron's](https://github.com/kylebarron) package [`stata_kernel`](https://kylebarron.github.io/stata_kernel), we can use Stata kernels for Jupyter, allowing us to run Stata remotely with low latency.
+    - However, Jupyter notebooks are not text files, so working with them does not have the do-file editor *feel* that Stata users might be used to.
+    - Additionally, Jupyter notebooks are harder to manage using Git
 
 ### Setup
 
@@ -83,8 +91,8 @@ jupyter labextension install jupyterlab-stata-highlight
 ```bash
 # Make a directory somewhere to house the condor scripts
 mkdir ~/condorscripts && cd ~/condorscripts && mkdir condorlogs
-# Download scripts from Github Repo
-wget <>
+# Download Jupyter submission script from Github Repo
+curl -LJO https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
 # Submit condor script
 condor_submit jupyter.submit
 ```
@@ -96,3 +104,13 @@ tmux new
 /bin/bash ~/condorscripts/condorsshrce.sh <username>
 ```
 - In your browser, go to `localhost:8889`, and voila!
+
+## Option 3: Atom + Hydrogen
+
+!!! note
+    - The text editor Atom, using the package Hydrogen, allows you to run code interactively, inspect data and plot using Jupyter kernels. This method uses [`stata_kernel`](https://kylebarron.github.io/stata_kernel) as well.
+    - Recommended option! Provides a do-file like *feel*, with low latency (i.e. no stuttering).
+
+**TODO**
+
+Summarise [documentation](https://nteract.gitbooks.io/hydrogen/docs/Usage/RemoteKernelConnection.html)
