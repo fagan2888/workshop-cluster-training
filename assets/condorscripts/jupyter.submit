@@ -1,8 +1,8 @@
 Universe        = vanilla
 Executable      = /bin/bash
 Arguments       = ~/condorscripts/run_jupyter.sh
-request_memory  = 10000
-request_cpus    = 4
+request_memory  = 4000
+request_cpus    = 2
 output  = ~/condorscripts/condorlogs/out
 error   = ~/condorscripts/condorlogs/error
 Log     = ~/condorscripts/condorlogs/log
