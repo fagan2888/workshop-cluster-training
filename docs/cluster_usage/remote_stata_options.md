@@ -70,7 +70,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ```
 
     If you aren't sure how to do this, run the following command and it'll do it for you:
-    
+
     ```bash
     echo ". /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh" >> ~/.bashrc
     ```
@@ -116,7 +116,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     mkdir ~/condorscripts && cd ~/condorscripts && mkdir condorlogs
     # Download Jupyter submission script from Github Repo
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
-    # Replace "~" in jupyter.submit with the absolute path to your HOME directory
+    # Automatically replace "~" in jupyter.submit with the absolute path to your HOME directory
     sed -i 's@\~@'"$HOME"'@' jupyter.submit
     # Download Jupyter connection script
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
@@ -128,16 +128,37 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 1. Submit Jupyter job
     ```bash
     # Submit condor script
-    condor_submit jupyter.submit
+    condor_submit ~/condorscripts/jupyter.submit
     ```
-2. Use tmux to handle connection errors/closures
+2. Use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to handle connection errors/closures
     ```bash
     # Start a new tmux window
     tmux new
     # SSH to the machine running your jupyter server
     . ~/condorscripts/condorsshrce.sh $USER
     ```
+
+    !!! tip
+        Basic tmux keyboard shortcuts:
+        - Exit tmux: `ctrl+b`, then `d`
+        - New horizontal pane: `ctrl+b`, then `"`
+        - New vertical pane: `ctrl+b`, then `%`
+        - Kill current pane: `ctrl+b`, then `x`, then `y`
+
 3. In your browser, go to `localhost:8889`, and voila!
+4. Once you're done, you can close the compute node using `ctrl+d`, you might then have to press `ctrl+c` if your login node is taking time to appear
+5. Remember to remove the job once you're finished:
+
+    ```bash
+    # Look up running jobs
+    condor_q -global $USER
+    # Remove job
+    condor_rm -name "<machine_name>" <ID>
+    ```
+
+    !!! example
+        ![Job Removal Example](img/remove_job_example.png)
+
 
 ## Option 3: Atom + Hydrogen
 
