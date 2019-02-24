@@ -45,6 +45,7 @@ markdown_extensions:
     - pymdownx.tasklist:
         custom_checkbox: true
     - pymdownx.superfences
+    - pymdownx.details
 
 # Google analytics
 google_analytics:

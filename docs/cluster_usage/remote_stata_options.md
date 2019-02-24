@@ -1,7 +1,7 @@
 ## Option 1: X-forwarding
 
 !!! note
-    The typical way of running Stata (or other graphical applications) remotely, X-forwarding gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery
+    - Gives you the actual window running Stata, but suffers from latency issues, which means that the screen will be stuttery
 
 ### Setup
 
@@ -138,12 +138,16 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     . ~/condorscripts/condorsshrce.sh $USER
     ```
 
-    !!! tip
-        Basic tmux keyboard shortcuts:
-        - Exit tmux: `ctrl+b`, then `d`
+    ??? tip "Tip: tmux keyboard shortcuts and commands"
+        - New tmux window: `tmux new`
+        - Detach tmux window: `ctrl+b`, then `d`
+        - Reattach latest tmux window: `tmux a`
         - New horizontal pane: `ctrl+b`, then `"`
         - New vertical pane: `ctrl+b`, then `%`
         - Kill current pane: `ctrl+b`, then `x`, then `y`
+        - Move between panes: `ctrl+b`, then arrow keys
+        - Stop moving, or cancel a tmux-specific command: `escape`
+        - Kill all tmux sessions: `tmux kill-server`
 
 3. In your browser, go to `localhost:8889`, and voila!
 4. Once you're done, you can close the compute node using `ctrl+d`, you might then have to press `ctrl+c` if your login node is taking time to appear
@@ -156,8 +160,8 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     condor_rm -name "<machine_name>" <ID>
     ```
 
-    !!! example
-        ![Job Removal Example](img/remove_job_example.png)
+    ??? example "Example"
+        ![Job Removal Example](../img/remove_job_example.png)
 
 
 ## Option 3: Atom + Hydrogen
