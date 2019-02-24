@@ -561,7 +561,9 @@
                 <h2 id="option-1-x-forwarding">Option 1: X-forwarding<a class="headerlink" href="#option-1-x-forwarding" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The typical way of running Stata (or other graphical applications) remotely, X-forwarding gives you the native behavior of Stata, but suffers from latency issues, which means that the screen will still be a bit stuttery</p>
+<ul>
+<li>Gives you the actual window running Stata, but suffers from latency issues, which means that the screen will be stuttery</li>
+</ul>
 </div>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
 <p><strong>MacOS:</strong></p>
@@ -744,14 +746,18 @@ tmux new
 . ~/condorscripts/condorsshrce.sh <span class="nv">$USER</span>
 </pre></div>
 </td></tr></table></p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Basic tmux keyboard shortcuts:
-- Exit tmux: <code>ctrl+b</code>, then <code>d</code>
-- New horizontal pane: <code>ctrl+b</code>, then <code>"</code>
-- New vertical pane: <code>ctrl+b</code>, then <code>%</code>
-- Kill current pane: <code>ctrl+b</code>, then <code>x</code>, then <code>y</code></p>
-</div>
+<details class="tip"><summary>Tip: tmux keyboard shortcuts and commands</summary><ul>
+<li>New tmux window: <code>tmux new</code></li>
+<li>Detach tmux window: <code>ctrl+b</code>, then <code>d</code></li>
+<li>Reattach latest tmux window: <code>tmux a</code></li>
+<li>New horizontal pane: <code>ctrl+b</code>, then <code>"</code></li>
+<li>New vertical pane: <code>ctrl+b</code>, then <code>%</code></li>
+<li>Kill current pane: <code>ctrl+b</code>, then <code>x</code>, then <code>y</code></li>
+<li>Move between panes: <code>ctrl+b</code>, then arrow keys</li>
+<li>Stop moving, or cancel a tmux-specific command: <code>escape</code></li>
+<li>Kill all tmux sessions: <code>tmux kill-server</code></li>
+</ul>
+</details>
 </li>
 <li>
 <p>In your browser, go to <code>localhost:8889</code>, and voila!</p>
@@ -769,10 +775,8 @@ condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&
 </pre></div>
 </td></tr></table>
 
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p><img alt="Job Removal Example" src="img/remove_job_example.png" /></p>
-</div>
+<details class="example"><summary>Example</summary><p><img alt="Job Removal Example" src="../../img/remove_job_example.png" /></p>
+</details>
 </li>
 </ol>
 <h2 id="option-3-atom-hydrogen">Option 3: Atom + Hydrogen<a class="headerlink" href="#option-3-atom-hydrogen" title="Permanent link">&para;</a></h2>
