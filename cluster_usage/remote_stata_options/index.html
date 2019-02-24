@@ -425,6 +425,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#running-stata-through-jupyter" title="Running Stata through Jupyter" class="md-nav__link">
+    Running Stata through Jupyter
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -513,6 +520,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#running-stata-through-jupyter" title="Running Stata through Jupyter" class="md-nav__link">
+    Running Stata through Jupyter
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -553,9 +567,8 @@
 <p><strong>MacOS:</strong></p>
 <ul>
 <li>Install <a href="https://www.xquartz.org/">Xquartz</a></li>
-<li>Edit <code>~/.ssh/config</code> and add:</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<li>Edit <code>~/.ssh/config</code> and add:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
 4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    Host *
@@ -563,8 +576,8 @@
         ForwardX11 yes
         ForwardX11Trusted yes
 </pre></div>
-</td></tr></table>
-
+</td></tr></table></li>
+</ul>
 <p><strong>Windows:</strong></p>
 <ul>
 <li>In PuTTy, enable X11 forwarding</li>
@@ -578,21 +591,19 @@
 <ul>
 <li><code>ssh</code> to the RCE, adding a <code>-Y</code> flag to the command.<ul>
 <li>You can use <code>-X</code> (untrusted X11 forwarding) or <code>-Y</code> (trusted X11 forwarding, slightly smoother)</li>
-<li><code>-Y</code> is less secure, so only use it for applications you recognize (such as Stata)</li>
+<li><code>-Y</code> is less secure, so only use it for applications you recognize (such as Stata)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Replace &quot;&lt;rce_username&gt;&quot; with your RCE username</span>
+ssh -Y &lt;rce_username&gt;@rce.hmdc.harvard.edu
+</pre></div>
+</td></tr></table></li>
 </ul>
 </li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>ssh -Y &lt;username&gt;@rce.hmdc.harvard.edu
+<li>Run the RCE provided convenience-command to start STATA jobs, with a graphical interface:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>rce_submit.py -r -graphical -a xstata-mp
 </pre></div>
-</td></tr></table>
-
-<ul>
-<li>Run the RCE provided convenience-command to start STATA jobs, with a graphical interface:</li>
+</td></tr></table></li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>rce_submit.py -r -graphical -a xstata-mp
-</pre></div>
-</td></tr></table>
-
 <p>For commonly used commands and introductory tutorials, refer to <a href="https://rce-docs.hmdc.harvard.edu/book/rce-docs">RCE documentation</a>.</p>
 <h2 id="option-2-jupyter-notebooks">Option 2: Jupyter Notebooks<a class="headerlink" href="#option-2-jupyter-notebooks" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -604,17 +615,36 @@
 </ul>
 </div>
 <h3 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li>SSH into the cluster, using portforwarding</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;username&gt;@rce.hmdc.harvard.edu
+<ol>
+<li>
+<p>SSH into the cluster, using portforwarding</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Replace &quot;&lt;rce_username&gt;&quot; with your RCE username</span>
+ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;username&gt;@rce.hmdc.harvard.edu
 </pre></div>
 </td></tr></table>
 
-<ul>
-<li>Create and prepare a conda environment, and activate it with the following commands:</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+</li>
+<li>
+<p>Load <code>conda</code> into the shell</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful while editing <code>~/.bashrc</code> and <code>~/.bash_profile</code> files - they are executed each time your shell opens, and you don't want to mess it up and be unable to access your account.</p>
+</div>
+<p>Add the following line (exactly as it is, including the period) to your <code>~/.bashrc</code>:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh
+</pre></div>
+</td></tr></table>
+
+<p>If you aren't sure how to do this, run the following command and it'll do it for you:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh&quot;</span> &gt;&gt; ~/.bashrc
+</pre></div>
+</td></tr></table>
+
+</li>
+<li>
+<p>Create and prepare a conda environment, and activate it with the following commands:
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
  4
@@ -627,13 +657,17 @@
 11
 12
 13
-14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
+14
+15
+16</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
 <span class="c1"># Ideally this path should have no spaces</span>
 <span class="c1"># Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/</span>
 <span class="nb">cd</span> ~/shared_space/&lt;rest_of_path&gt;
 mkdir cid_env <span class="o">&amp;&amp;</span> <span class="nb">cd</span> cid_env
 <span class="c1"># Create conda environment in the current folder</span>
 conda create --prefix<span class="o">=</span>cid <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
+<span class="c1"># Edit conda config file ~/.condarc to specify location of environment</span>
+<span class="nb">echo</span> <span class="s2">&quot;envs_dirs:\n  - </span><span class="nv">$HOME</span><span class="s2">/shared_space/&lt;path_to_environment&gt;&quot;</span> &gt;&gt; ~/.condarc
 <span class="c1"># Activate conda environment (can now be done from any folder)</span>
 conda activate cid
 <span class="c1"># Install necessary packages</span>
@@ -642,12 +676,10 @@ conda config --add channels conda-forge
 <span class="c1">## Download required packages</span>
 conda install -c conda-forge jupyterlab nodejs
 </pre></div>
-</td></tr></table>
-
-<ul>
-<li>Configure JupyterLab for increased security</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+</td></tr></table></p>
+</li>
+<li>Configure JupyterLab for increased security
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
 4
@@ -655,14 +687,11 @@ conda install -c conda-forge jupyterlab nodejs
 jupyter notebook --generate-config
 <span class="c1"># Set jupyter notebook password for increased security (optional)</span>
 jupyter notebook password
-<span class="c1"># &lt;you will be asked for a password</span>
+<span class="c1"># you will be asked for a password</span>
 </pre></div>
-</td></tr></table>
-
-<ul>
-<li>Install STATA for Jupyter</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+</td></tr></table></li>
+<li>Install STATA for Jupyter
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
 4
@@ -672,41 +701,50 @@ python -m stata_kernel.install
 <span class="c1">## Install JupyterLab Extension for Stata syntax highlighting</span>
 jupyter labextension install jupyterlab-stata-highlight
 </pre></div>
-</td></tr></table>
-
-<ul>
-<li>Submit Jupyter job</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Make a directory somewhere to house the condor scripts</span>
+</td></tr></table></li>
+<li>Prepare condor submission and connection scripts
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Make a directory somewhere to house the condor scripts</span>
 mkdir ~/condorscripts <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/condorscripts <span class="o">&amp;&amp;</span> mkdir condorlogs
 <span class="c1"># Download Jupyter submission script from Github Repo</span>
-curl -LJO https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
-<span class="c1"># Submit condor script</span>
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+<span class="c1"># Replace &quot;~&quot; in jupyter.submit with the absolute path to your HOME directory</span>
+sed -i <span class="s1">&#39;s@\~@&#39;</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span><span class="s1">&#39;@&#39;</span> jupyter.submit
+<span class="c1"># Download Jupyter connection script</span>
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
+<span class="c1"># Automatically replace &quot;username&quot; with the username</span>
+sed -i <span class="s1">&#39;s/username/&#39;</span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="s1">&#39;/&#39;</span> condorsshrce.sh
+</pre></div>
+</td></tr></table></li>
+</ol>
+<h3 id="running-stata-through-jupyter">Running Stata through Jupyter<a class="headerlink" href="#running-stata-through-jupyter" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Submit Jupyter job
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Submit condor script</span>
 condor_submit jupyter.submit
 </pre></div>
-</td></tr></table>
-
-<ul>
-<li>Use tmux to handle connection errors/closures</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+</td></tr></table></li>
+<li>Use tmux to handle connection errors/closures
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
 4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Start a new tmux window</span>
 tmux new
 <span class="c1"># SSH to the machine running your jupyter server</span>
-/bin/bash ~/condorscripts/condorsshrce.sh &lt;username&gt;
+. ~/condorscripts/condorsshrce.sh <span class="nv">$USER</span>
 </pre></div>
-</td></tr></table>
-
-<ul>
+</td></tr></table></li>
 <li>In your browser, go to <code>localhost:8889</code>, and voila!</li>
-</ul>
+</ol>
 <h2 id="option-3-atom-hydrogen">Option 3: Atom + Hydrogen<a class="headerlink" href="#option-3-atom-hydrogen" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
