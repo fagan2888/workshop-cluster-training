@@ -716,7 +716,7 @@ jupyter labextension install jupyterlab-stata-highlight
 mkdir ~/condorscripts <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/condorscripts <span class="o">&amp;&amp;</span> mkdir condorlogs
 <span class="c1"># Download Jupyter submission script from Github Repo</span>
 curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
-<span class="c1"># Replace &quot;~&quot; in jupyter.submit with the absolute path to your HOME directory</span>
+<span class="c1"># Automatically replace &quot;~&quot; in jupyter.submit with the absolute path to your HOME directory</span>
 sed -i <span class="s1">&#39;s@\~@&#39;</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span><span class="s1">&#39;@&#39;</span> jupyter.submit
 <span class="c1"># Download Jupyter connection script</span>
 curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
@@ -730,10 +730,11 @@ sed -i <span class="s1">&#39;s/username/&#39;</span><span class="s2">&quot;</spa
 <li>Submit Jupyter job
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Submit condor script</span>
-condor_submit jupyter.submit
+condor_submit ~/condorscripts/jupyter.submit
 </pre></div>
 </td></tr></table></li>
-<li>Use tmux to handle connection errors/closures
+<li>
+<p>Use <a href="https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/">tmux</a> to handle connection errors/closures
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
@@ -742,8 +743,37 @@ tmux new
 <span class="c1"># SSH to the machine running your jupyter server</span>
 . ~/condorscripts/condorsshrce.sh <span class="nv">$USER</span>
 </pre></div>
-</td></tr></table></li>
-<li>In your browser, go to <code>localhost:8889</code>, and voila!</li>
+</td></tr></table></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Basic tmux keyboard shortcuts:
+- Exit tmux: <code>ctrl+b</code>, then <code>d</code>
+- New horizontal pane: <code>ctrl+b</code>, then <code>"</code>
+- New vertical pane: <code>ctrl+b</code>, then <code>%</code>
+- Kill current pane: <code>ctrl+b</code>, then <code>x</code>, then <code>y</code></p>
+</div>
+</li>
+<li>
+<p>In your browser, go to <code>localhost:8889</code>, and voila!</p>
+</li>
+<li>Once you're done, you can close the compute node using <code>ctrl+d</code>, you might then have to press <code>ctrl+c</code> if your login node is taking time to appear</li>
+<li>
+<p>Remember to remove the job once you're finished:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Look up running jobs</span>
+condor_q -global <span class="nv">$USER</span>
+<span class="c1"># Remove job</span>
+condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&gt;
+</pre></div>
+</td></tr></table>
+
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><img alt="Job Removal Example" src="img/remove_job_example.png" /></p>
+</div>
+</li>
 </ol>
 <h2 id="option-3-atom-hydrogen">Option 3: Atom + Hydrogen<a class="headerlink" href="#option-3-atom-hydrogen" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
