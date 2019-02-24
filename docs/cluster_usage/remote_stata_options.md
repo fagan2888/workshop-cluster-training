@@ -31,7 +31,8 @@
     + You can use `-X` (untrusted X11 forwarding) or `-Y` (trusted X11 forwarding, slightly smoother)
     + `-Y` is less secure, so only use it for applications you recognize (such as Stata)
 ```bash
-ssh -Y <username>@rce.hmdc.harvard.edu
+# Replace "<rce_username>" with your RCE username
+ssh -Y <rce_username>@rce.hmdc.harvard.edu
 ```
 - Run the RCE provided convenience-command to start STATA jobs, with a graphical interface:
 ```
@@ -50,11 +51,26 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 
 ### Setup
 
-- SSH into the cluster, using portforwarding
+1. SSH into the cluster, using portforwarding
 ```bash
+# Replace "<rce_username>" with your RCE username
 ssh -Y -L 8889:localhost:8889 <username>@rce.hmdc.harvard.edu
 ```
-- Create and prepare a conda environment, and activate it with the following commands:
+2. Load `conda` into the shell
+
+!!! warning
+    Be careful while editing `~/.bashrc` and `~/.bash_profile` files - they are executed each time your shell opens, and you don't want to mess it up and be unable to access your account.
+
+Add the following line (exactly as it is, including the period) to your `~/.bashrc`
+```bash
+. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh
+```
+If you aren't sure how to do this, run the following command and it'll do it for you:
+```bash
+echo ". /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh" >> ~/.bashrc
+```
+
+3. Create and prepare a conda environment, and activate it with the following commands:
 ```bash
 # Navigate to a folder with >10GB available space (one of your shared_space dirs)
 # Ideally this path should have no spaces
@@ -63,6 +79,8 @@ cd ~/shared_space/<rest_of_path>
 mkdir cid_env && cd cid_env
 # Create conda environment in the current folder
 conda create --prefix=cid python=3
+# Edit conda config file ~/.condarc to specify location of environment
+echo "envs_dirs:\n  - $HOME/shared_space/<path_to_environment>" >> ~/.condarc
 # Activate conda environment (can now be done from any folder)
 conda activate cid
 # Install necessary packages
@@ -71,15 +89,15 @@ conda config --add channels conda-forge
 ## Download required packages
 conda install -c conda-forge jupyterlab nodejs
 ```
-- Configure JupyterLab for increased security
+4. Configure JupyterLab for increased security
 ```bash
 # Configure JupyterLab
 jupyter notebook --generate-config
 # Set jupyter notebook password for increased security (optional)
 jupyter notebook password
-# <you will be asked for a password
+# you will be asked for a password
 ```
-- Install STATA for Jupyter
+5. Install STATA for Jupyter
 ```bash
 ## Install stata_kernel
 pip install stata_kernel
@@ -87,23 +105,34 @@ python -m stata_kernel.install
 ## Install JupyterLab Extension for Stata syntax highlighting
 jupyter labextension install jupyterlab-stata-highlight
 ```
-- Submit Jupyter job
+6. Prepare condor submission and connection scripts
 ```bash
 # Make a directory somewhere to house the condor scripts
 mkdir ~/condorscripts && cd ~/condorscripts && mkdir condorlogs
 # Download Jupyter submission script from Github Repo
-curl -LJO https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+# Replace "~" in jupyter.submit with the absolute path to your HOME directory
+sed -i 's@\~@'"$HOME"'@' jupyter.submit
+# Download Jupyter connection script
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
+# Automatically replace "username" with the username
+sed -i 's/username/'"$USER"'/' condorsshrce.sh
+```
+
+### Running Stata through Jupyter
+1. Submit Jupyter job
+```bash
 # Submit condor script
 condor_submit jupyter.submit
 ```
-- Use tmux to handle connection errors/closures
+2. Use tmux to handle connection errors/closures
 ```bash
 # Start a new tmux window
 tmux new
 # SSH to the machine running your jupyter server
-/bin/bash ~/condorscripts/condorsshrce.sh <username>
+. ~/condorscripts/condorsshrce.sh $USER
 ```
-- In your browser, go to `localhost:8889`, and voila!
+3. In your browser, go to `localhost:8889`, and voila!
 
 ## Option 3: Atom + Hydrogen
 
