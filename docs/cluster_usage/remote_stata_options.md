@@ -97,6 +97,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
     ```
+
 4. Install STATA for Jupyter
     ```bash
     ## Install stata_kernel
@@ -195,10 +196,14 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     - [hydrogen](https://atom.io/packages/hydrogen): run code through jupyter kernels
     - [language-stata](https://atom.io/packages/language-stata): stata code linting
 
-    Optional (my favourite fun add-ons):
+    Optional (my favourite add-ons):
 
+    - [tree-view](https://atom.io/packages/tree-view): explore files in project
     - [file-icons](https://atom.io/packages/file-icons): convenient file icons in tree view
     - [atom-beautify](https://atom.io/packages/atom-beautify): automatically indent / beautify code according to linters
+    - [open-recent](https://atom.io/packages/open-recent): open recently opened files / projects
+    - [teletype](https://atom.io/packages/teletype): collaborate on code in real-time (google docs for code)
+    - [highlight-selected](https://atom.io/packages/highlight-selected): highlight all occurrences of selected word or phrase
     - [minimap](https://atom.io/packages/minimap): mini view of the code on the side
 
 2. Configure `remote_ftp`

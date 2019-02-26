@@ -144,8 +144,12 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
 
     Optional (my favourite fun add-ons):
 
+    - [tree-view](https://atom.io/packages/tree-view): explore files in project
     - [file-icons](https://atom.io/packages/file-icons): convenient file icons in tree view
     - [atom-beautify](https://atom.io/packages/atom-beautify): automatically indent / beautify code according to linters
+    - [open-recent](https://atom.io/packages/open-recent): open recently opened files / projects
+    - [teletype](https://atom.io/packages/teletype): collaborate on code in real-time (google docs for code)
+    - [highlight-selected](https://atom.io/packages/highlight-selected): highlight all occurrences of selected word or phrase
     - [minimap](https://atom.io/packages/minimap): mini view of the code on the side
 
 2. Configure `remote_ftp`
@@ -242,4 +246,38 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     plt.scatter(x, y, s=area, c=colors, alpha=0.5)
     plt.show()
 
+
+    # Interactive graphs
+    import altair as alt
+    from vega_datasets import data
+    import IPython
+
+    source = data.cars()
+
+    brush = alt.selection(type='interval')
+
+    points = alt.Chart().mark_point().encode(
+        x='Horsepower:Q',
+        y='Miles_per_Gallon:Q',
+        color=alt.condition(brush, 'Origin:N', alt.value('lightgray'))
+    ).add_selection(
+        brush
+    )
+
+    bars = alt.Chart().mark_bar().encode(
+        y='Origin:N',
+        color='Origin:N',
+        x='count(Origin):Q'
+    ).transform_filter(
+        brush
+    )
+
+    chart = alt.vconcat(points, bars, data=source)
+
+    def vegify(chart):
+        IPython.display.display({
+            'application/vnd.vegalite.v2+json': spec.to_dict()
+        }, raw=True)
+
+    vegify(chart)
     ```
