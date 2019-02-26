@@ -94,10 +94,13 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
     ```
-4. Create configuration file for Jupyter
+4. Set default Jupyter notebook token
     ```bash
-    # Configure JupyterLab
+    # Create Jupyter notebook configuration file if it does not exist
+    # If you're asked to overwrite an existing file, choose N (no)
     jupyter notebook --generate-config
+    # Set Jupyter notebook token to a custom token (replace <my_token> with your own choice)
+    sed -i "s/^\#c\.NotebookApp\.token\ =.*/\c\.NotebookApp\.token\ =\ '<my_token>'/" ~/.jupyter/jupyter_notebook_config.py
     ```
 5. Install STATA for Jupyter
     ```bash
@@ -110,7 +113,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 6. Prepare condor submission and connection scripts
     ```bash
     # Make a directory somewhere to house the condor scripts
-    mkdir ~/condorscripts && cd ~/condorscripts && mkdir condorlogs
+    mkdir -p ~/condorscripts/condorlogs && cd ~/condorscripts
     # Download Jupyter submission script from Github Repo
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
     # Automatically replace "~" in jupyter.submit with the absolute path to your HOME directory
@@ -173,10 +176,6 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 !!! note
     - The text editor Atom, using the package Hydrogen, allows you to run code interactively, inspect data and plot using Jupyter kernels. This method uses [`stata_kernel`](https://kylebarron.github.io/stata_kernel) as well.
     - Recommended option! Provides a do-file like *feel*, with low latency (i.e. no stuttering).
-
-**TODO**
-
-Summarise [documentation](https://nteract.gitbooks.io/hydrogen/docs/Usage/RemoteKernelConnection.html)
 
 ### Setup
 
