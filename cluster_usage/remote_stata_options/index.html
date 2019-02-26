@@ -753,15 +753,21 @@ ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hm
 13
 14
 15
-16</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
+16
+17
+18
+19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
 <span class="c1"># Ideally this path should have no spaces</span>
 <span class="c1"># Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/</span>
 <span class="nb">cd</span> ~/shared_space/&lt;rest_of_path&gt;
 mkdir cid_env <span class="o">&amp;&amp;</span> <span class="nb">cd</span> cid_env
 <span class="c1"># Create conda environment in the current folder</span>
 conda create --prefix<span class="o">=</span>cid <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
-<span class="c1"># Edit conda config file ~/.condarc to specify location of environment</span>
-<span class="nb">echo</span> <span class="s2">&quot;envs_dirs:\n  - </span><span class="nv">$HOME</span><span class="s2">/shared_space/&lt;path_to_environment&gt;&quot;</span> &gt;&gt; ~/.condarc
+<span class="c1"># Set required environment variables to specify location of environment</span>
+<span class="c1"># Example: export CONDA_ENVS_PATH=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/&quot;</span>
+<span class="c1"># Example: export CONDA_PKGS_DIRS=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_ENVS_PATH=\&quot;&lt;path_to_environment&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_PKGS_DIRS=\&quot;&lt;path_to_packages&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
 <span class="c1"># Activate conda environment (can now be done from any folder)</span>
 conda activate cid
 <span class="c1"># Install necessary packages</span>
@@ -772,12 +778,6 @@ conda install -c conda-forge jupyterlab nodejs
 </pre></div>
 </td></tr></table></p>
 </li>
-<li>Create configuration file for Jupyter
-    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Configure JupyterLab</span>
-jupyter notebook --generate-config
-</pre></div>
-</td></tr></table></li>
 <li>Install STATA for Jupyter
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
@@ -800,16 +800,26 @@ jupyter labextension install jupyterlab-stata-highlight
  7
  8
  9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Make a directory somewhere to house the condor scripts</span>
-mkdir ~/condorscripts <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/condorscripts <span class="o">&amp;&amp;</span> mkdir condorlogs
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Make a directory somewhere to house the condor scripts</span>
+mkdir -p ~/condorscripts/condorlogs <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/condorscripts
 <span class="c1"># Download Jupyter submission script from Github Repo</span>
-curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
 <span class="c1"># Automatically replace &quot;~&quot; in jupyter.submit with the absolute path to your HOME directory</span>
 sed -i <span class="s1">&#39;s@\~@&#39;</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span><span class="s1">&#39;@&#39;</span> jupyter.submit
 <span class="c1"># Download Jupyter connection script</span>
 curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
 <span class="c1"># Automatically replace &quot;username&quot; with the username</span>
 sed -i <span class="s1">&#39;s/username/&#39;</span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="s1">&#39;/&#39;</span> condorsshrce.sh
+<span class="c1"># Download shell script to activate conda env named &#39;cid&#39; and run Jupyter</span>
+curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+<span class="c1"># Replace &quot;&lt;your_token&gt;&quot; with token of your choice</span>
+<span class="c1"># Example: sed -i &#39;s/my_token/example_token/&#39; run_jupyter.sh</span>
+sed -i <span class="s1">&#39;s/my_token/&lt;your_token&gt;/&#39;</span> run_jupyter.sh
 </pre></div>
 </td></tr></table></li>
 </ol>
@@ -884,8 +894,6 @@ condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&
 <li>Recommended option! Provides a do-file like <em>feel</em>, with low latency (i.e. no stuttering).</li>
 </ul>
 </div>
-<p><strong>TODO</strong></p>
-<p>Summarise <a href="https://nteract.gitbooks.io/hydrogen/docs/Usage/RemoteKernelConnection.html">documentation</a></p>
 <h3 id="setup_2">Setup<a class="headerlink" href="#setup_2" title="Permanent link">&para;</a></h3>
 <h4 id="setting-up-the-jupyter-kernel">Setting up the Jupyter Kernel<a class="headerlink" href="#setting-up-the-jupyter-kernel" title="Permanent link">&para;</a></h4>
 <p>The steps for setting up the Jupyter kernel are the same as for <a href="#option-2-jupyter-lab"><em>Option 2: Jupyter Lab</em></a>.</p>
@@ -958,9 +966,9 @@ condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&
 <li>
 <p>Configure Hydrogen</p>
 <ul>
-<li>Through the Command Palette, go to "View Installed Packages" --&gt; hydrogen's settings --&gt; change <code>Kernel Gateways</code> to the following:</li>
+<li>Through the Command Palette, go to "View Installed Packages" --&gt; hydrogen's settings --&gt; change <code>Kernel Gateways</code> to the following (replace <code>&lt;your_token&gt;</code> with the token you set for Jupyter earlier):</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>[{&quot;name&quot;:&quot;RCE Jupyter&quot;, &quot;options&quot;:{&quot;baseUrl&quot;:&quot;http://localhost:8889&quot;}}]
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="p">[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;RCE Jupyter&quot;</span><span class="p">,</span> <span class="nt">&quot;options&quot;</span><span class="p">:{</span><span class="nt">&quot;baseUrl&quot;</span><span class="p">:</span><span class="s2">&quot;http://localhost:8889&quot;</span><span class="p">,</span> <span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;your_token&gt;&quot;</span><span class="p">}}]</span>
 </pre></div>
 </td></tr></table>
 
