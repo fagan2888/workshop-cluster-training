@@ -94,15 +94,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
     ```
-4. Set default Jupyter notebook token
-    ```bash
-    # Create Jupyter notebook configuration file if it does not exist
-    # If you're asked to overwrite an existing file, choose N (no)
-    jupyter notebook --generate-config
-    # Set Jupyter notebook token to a custom token (replace <my_token> with your own choice)
-    sed -i "s/^\#c\.NotebookApp\.token\ =.*/\c\.NotebookApp\.token\ =\ '<my_token>'/" ~/.jupyter/jupyter_notebook_config.py
-    ```
-5. Install STATA for Jupyter
+4. Install STATA for Jupyter
     ```bash
     ## Install stata_kernel
     pip install stata_kernel
@@ -110,18 +102,22 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Install JupyterLab Extension for Stata syntax highlighting
     jupyter labextension install jupyterlab-stata-highlight
     ```
-6. Prepare condor submission and connection scripts
+5. Prepare condor submission and connection scripts
     ```bash
     # Make a directory somewhere to house the condor scripts
     mkdir -p ~/condorscripts/condorlogs && cd ~/condorscripts
     # Download Jupyter submission script from Github Repo
-    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
     # Automatically replace "~" in jupyter.submit with the absolute path to your HOME directory
     sed -i 's@\~@'"$HOME"'@' jupyter.submit
     # Download Jupyter connection script
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
     # Automatically replace "username" with the username
     sed -i 's/username/'"$USER"'/' condorsshrce.sh
+    # Download shell script to activate conda env named 'cid' and run Jupyter
+    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+    # Replace "<your_token>" with token of your choice
+    sed -i 's/my_token/<your_token>/' run_jupyter.sh
     ```
 
 ### Running Stata through Jupyter
