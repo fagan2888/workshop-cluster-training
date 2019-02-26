@@ -634,26 +634,45 @@ ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hm
 </li>
 <li>
 <p>Create and prepare a conda environment, and activate it with the following commands:
-    ```bash
-    # Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)
-    # Ideally this path should have no spaces
-    # Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/
-    cd ~/shared_space/<rest_of_path>
-    mkdir cid_env &amp;&amp; cd cid_env
-    # Create conda environment in the current folder
-    conda create --prefix=cid python=3
-    # Set required environment variables to specify location of environment
-    # Example: export CONDA_ENVS_PATH="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/"
-    # Example: export CONDA_PKGS_DIRS="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/"
-    echo "export CONDA_ENVS_PATH=\"<path_to_environment>\"" &gt;&gt; ~/.bashrc
-    echo "export CONDA_PKGS_DIRS=\"<path_to_packages>\"" &gt;&gt; ~/.bashrc
-    # Activate conda environment (can now be done from any folder)
-    conda activate cid
-    # Install necessary packages
-    ## Add conda-forge as the main channel for downloading packages (optional)
-    conda config --add channels conda-forge
-    ## Download required packages
-    conda install -c conda-forge jupyterlab nodejs</p>
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
+<span class="c1"># Ideally this path should have no spaces</span>
+<span class="c1"># Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/</span>
+<span class="nb">cd</span> ~/shared_space/&lt;rest_of_path&gt;
+mkdir cid_env <span class="o">&amp;&amp;</span> <span class="nb">cd</span> cid_env
+<span class="c1"># Create conda environment in the current folder</span>
+conda create --prefix<span class="o">=</span>cid <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
+<span class="c1"># Set required environment variables to specify location of environment</span>
+<span class="c1"># Example: export CONDA_ENVS_PATH=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/&quot;</span>
+<span class="c1"># Example: export CONDA_PKGS_DIRS=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_ENVS_PATH=\&quot;&lt;path_to_environment&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_PKGS_DIRS=\&quot;&lt;path_to_packages&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="c1"># Activate conda environment (can now be done from any folder)</span>
+conda activate cid
+<span class="c1"># Install necessary packages</span>
+<span class="c1">## Add conda-forge as the main channel for downloading packages (optional)</span>
+conda config --add channels conda-forge
+<span class="c1">## Download required packages</span>
+conda install -c conda-forge jupyterlab nodejs
+</pre></div>
+</td></tr></table></p>
 </li>
 <li>
 <p>Prepare condor submission and connection scripts
