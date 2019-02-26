@@ -60,4 +60,5 @@ nav:
         - Folder structures: data_management/folder_structure.md
     - Cluster Training:
         - Basic Commands: cluster_usage/basic_cluster_usage.md
+        - Running Python Remotely: cluster_usage/remote_python_options.md
         - Running Stata Remotely: cluster_usage/remote_stata_options.md
