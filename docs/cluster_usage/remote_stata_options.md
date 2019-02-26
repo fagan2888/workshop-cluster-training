@@ -117,6 +117,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     # Download shell script to activate conda env named 'cid' and run Jupyter
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
     # Replace "<your_token>" with token of your choice
+    # Example: sed -i 's/my_token/example_token/' run_jupyter.sh
     sed -i 's/my_token/<your_token>/' run_jupyter.sh
     ```
 
@@ -229,10 +230,10 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
 
 3. Configure Hydrogen
 
-    - Through the Command Palette, go to "View Installed Packages" --> hydrogen's settings --> change `Kernel Gateways` to the following:
+    - Through the Command Palette, go to "View Installed Packages" --> hydrogen's settings --> change `Kernel Gateways` to the following (replace `<your_token>` with the token you set for Jupyter earlier):
 
-    ```
-    [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889"}}]
+    ```json
+    [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889", "token":"<your_token>"}}]
     ```
 
 ### Running Stata through Hydrogen

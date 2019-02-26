@@ -49,23 +49,24 @@
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
     ```
-4. Create configuration file for Jupyter
-    ```bash
-    # Configure JupyterLab
-    jupyter notebook --generate-config
-    ```
-5. Prepare condor submission and connection scripts
+
+4. Prepare condor submission and connection scripts
     ```bash
     # Make a directory somewhere to house the condor scripts
-    mkdir ~/condorscripts && cd ~/condorscripts && mkdir condorlogs
+    mkdir -p ~/condorscripts/condorlogs && cd ~/condorscripts
     # Download Jupyter submission script from Github Repo
-    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/jupyter.submit
     # Automatically replace "~" in jupyter.submit with the absolute path to your HOME directory
     sed -i 's@\~@'"$HOME"'@' jupyter.submit
     # Download Jupyter connection script
     curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/condorsshrce.sh
     # Automatically replace "username" with the username
     sed -i 's/username/'"$USER"'/' condorsshrce.sh
+    # Download shell script to activate conda env named 'cid' and run Jupyter
+    curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/master/assets/condorscripts/run_jupyter.sh
+    # Replace "<your_token>" with token of your choice
+    # Example: sed -i 's/my_token/example_token/' run_jupyter.sh
+    sed -i 's/my_token/<your_token>/' run_jupyter.sh
     ```
 
 ### Running Python through Jupyter
@@ -176,10 +177,10 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
 
 3. Configure Hydrogen
 
-    - Through the Command Palette, go to "View Installed Packages" --> hydrogen's settings --> change `Kernel Gateways` to the following:
+    - Through the Command Palette, go to "View Installed Packages" --> hydrogen's settings --> change `Kernel Gateways` to the following (replace `<your_token>` with the token you set for Jupyter earlier):
 
-    ```
-    [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889"}}]
+    ```json
+    [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889", "token":"<your_token>"}}]
     ```
 
 ### Running Stata through Hydrogen
@@ -212,7 +213,7 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
 
 3. Magics
 
-    - You can use Jupyter magics through Hydrogen
+    - You can use [Jupyter magics](https://ipython.readthedocs.io/en/stable/interactive/magics.html) through Hydrogen
 
     ```python
     %reset -f # Reset all variables in memory
