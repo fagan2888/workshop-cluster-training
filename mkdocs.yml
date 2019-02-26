@@ -8,6 +8,9 @@ repo_name: cid-harvard/workshop-cluster-training
 repo_url: https://github.com/cid-harvard/workshop-cluster-training
 edit_uri: ""
 
+# Add license info
+copyright: 'Licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution License</a> unless otherwise noted.'
+
 # Theme
 theme:
     name: material
