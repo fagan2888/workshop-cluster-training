@@ -42,7 +42,7 @@ rce_submit.py -r -graphical -a xstata-mp
 For commonly used commands and introductory tutorials, refer to [RCE documentation](https://rce-docs.hmdc.harvard.edu/book/rce-docs).
 
 
-## Option 2: Jupyter Notebooks
+## Option 2: Jupyter Lab
 
 !!! note
     - Thanks to [Kyle Barron's](https://github.com/kylebarron) package [`stata_kernel`](https://kylebarron.github.io/stata_kernel), we can use Stata kernels for Jupyter, allowing us to run Stata remotely with low latency.
@@ -55,7 +55,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 
     ```bash
     # Replace "<rce_username>" with your RCE username
-    ssh -Y -L 8889:localhost:8889 <username>@rce.hmdc.harvard.edu
+    ssh -Y -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
     ```
 
 2. Load `conda` into the shell
@@ -94,13 +94,10 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
     ```
-4. Configure JupyterLab for increased security
+4. Create configuration file for Jupyter
     ```bash
     # Configure JupyterLab
     jupyter notebook --generate-config
-    # Set jupyter notebook password for increased security (optional)
-    jupyter notebook password
-    # you will be asked for a password
     ```
 5. Install STATA for Jupyter
     ```bash
@@ -125,12 +122,19 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ```
 
 ### Running Stata through Jupyter
-1. Submit Jupyter job
+1. SSH into the cluster, using portforwarding (if you haven't yet)
+
+    ```bash
+    # Replace "<rce_username>" with your RCE username
+    ssh -Y -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
+    ```
+
+2. Submit Jupyter job
     ```bash
     # Submit condor script
     condor_submit ~/condorscripts/jupyter.submit
     ```
-2. Use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to handle connection errors/closures
+3. Use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to handle connection errors/closures
     ```bash
     # Start a new tmux window
     tmux new
@@ -149,9 +153,9 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
         - Stop moving, or cancel a tmux-specific command: `escape`
         - Kill all tmux sessions: `tmux kill-server`
 
-3. In your browser, go to `localhost:8889`, and voila!
-4. Once you're done, you can close the compute node using `ctrl+d`, you might then have to press `ctrl+c` if your login node is taking time to appear
-5. Remember to remove the job once you're finished:
+4. In your browser, go to `localhost:8889`, and voila!
+5. Once you're done, you can close the compute node using `ctrl+d`, you might then have to press `ctrl+c` if your login node is taking time to appear
+6. Remember to remove the job once you're finished:
 
     ```bash
     # Look up running jobs
@@ -173,3 +177,105 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 **TODO**
 
 Summarise [documentation](https://nteract.gitbooks.io/hydrogen/docs/Usage/RemoteKernelConnection.html)
+
+### Setup
+
+#### Setting up the Jupyter Kernel
+
+The steps for setting up the Jupyter kernel are the same as for [*Option 2: Jupyter Lab*](#option-2-jupyter-lab).
+
+#### Setting up Atom
+
+You can learn some Atom basics [here](https://flight-manual.atom.io/getting-started/sections/atom-basics)
+
+1. Install required packages
+
+    To install a package on atom, press `Cmd+Shift+P` (Mac) or `Cmd+Shift+P` (Windows) to enter the "Command Palette", and type `Install Packages`. Install the following packages:
+
+    - [remote-ftp](https://atom.io/packages/remote-ftp): enable browsing remote files
+    - [hydrogen](https://atom.io/packages/hydrogen): run code through jupyter kernels
+    - [language-stata](https://atom.io/packages/language-stata): stata code linting
+
+    Optional (my favourite fun add-ons):
+
+    - [file-icons](https://atom.io/packages/file-icons): convenient file icons in tree view
+    - [atom-beautify](https://atom.io/packages/atom-beautify): automatically indent / beautify code according to linters
+    - [minimap](https://atom.io/packages/minimap): mini view of the code on the side
+
+2. Configure `remote_ftp`
+
+    - Create an empty folder in your computer. Call it `remote_atom` (or any other name you might see fit).
+    - Open Atom and click "File -> Open -> `remote_atom`". This will open the `remote_atom` folder as a "project".
+    - Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`) and type "Create Sftp" and choose the option "Remote Ftp: Create Sftp Config File". You will notice that a file named `.ftpconfig` is automatically created in the same folder.
+    - Replace the contents of the file with the following, modifying the `user` and `remote` parameters:
+
+    ```json
+    {
+        "protocol": "sftp",
+        "host": "rce.hmdc.harvard.edu", // string - Hostname or IP address of the server. Default: 'localhost'
+        "port": 22, // integer - Port number of the server. Default: 22
+        "user": "<username>", // string - Username for authentication. Default: (none)
+        "promptForPass": true, // boolean - Set to true for enable password/passphrase dialog. This will prevent from using cleartext password/passphrase in this config. Default: false
+        "remote": "/nfs/home/S/shg309/ <replace with your own home folder>", // try to use absolute paths starting with /
+        "connTimeout": 10000, // integer - How long (in milliseconds) to wait for the SSH handshake to complete. Default: 10000
+        "keepalive": 10000 // integer - How often (in milliseconds) to send SSH-level keepalive packets to the server (in a similar way as OpenSSH's ServerAliveInterval config option). Set to 0 to disable. Default: 10000
+    }
+    ```
+
+    - Open the Command Palette and type "Remote Ftp", and choose the option `Toggle`. This will open up a `Remote` tab on the left hand side.
+    - In the `Remote` tab, click on `Connect`, and voila! You can now edit files on the cluster as if they were on your own computer!
+
+    !!! warning
+        - Don't use the `remote_atom` project unless you're working on the cluster. The files in the folder are uploaded automatically to the cluster when you reconnect.
+
+    !!! note
+        - Once you're done, remember to `Disconnect`.
+        - Optional: Through the Command Palette, go to "View Installed Packages" --> remote_ftp's settings --> change `Auto Upload on Save` from `always` to `only when connected`
+
+3. Configure Hydrogen
+
+    - Through the Command Palette, go to "View Installed Packages" --> hydrogen's settings --> change `Kernel Gateways` to the following:
+
+    ```
+    [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889"}}]
+    ```
+
+### Running Stata through Hydrogen
+
+1. Connect to Remote Kernel
+
+    - Open a Stata `.do` file
+    - Through the Command Palette, go to "Connect to Remote Kernel".
+
+    ??? note "First-time users"
+        If this is the first time you're connecting, you might be asked to "Authenticate Using Token". To find the authentication token, on an RCE node, type the following:
+
+        ```bash
+        # Activate conda environment
+        conda activate cid
+        # Get Jupyter token
+        jupyter notebook list
+        ```
+
+        The token will be of the form:
+
+        <pre><code>
+        http://localhost:8889/?token=<mark>a61elkjziunns1523e70eb18a452cfsdf9812302199b87e</mark>
+        </pre></code>
+
+2. Running code
+
+    - Select code you want to run, and hit `Cmd+Enter` (Mac) or `Ctrl+Enter` (Windows)
+    - To run all code, hit `Cmd+Option+Enter` (Mac) or `Ctrl+Alt+Enter` (Windows)
+
+3. Magics
+
+    - For browsing data, you can use the `%browse` magic:
+
+    ```stata
+    webuse auto
+    scatter mpg weight
+    %browse 100 mpg
+    ```
+
+    - Refer to [this page](https://kylebarron.github.io/stata_kernel/using_stata_kernel/magics/) for more Jupyter+Stata magics.
