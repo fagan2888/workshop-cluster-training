@@ -4,7 +4,8 @@
 
 - Backups
     - Cluster data often backed up, but ensure backup frequency is sufficient
-    - Solution: external hard drive (local) + CrashPlan (cloud)
+    - Solution: external hard drive (local) + cluster backups + CrashPlan (cloud)
+    - Above solutions contingent on data agreements / legal restrictions
 - File organization and naming
     - Create a shared system, *follow it*.
     - Consider date conventions (YYYY-MM-DD), special characters, versioning
@@ -47,13 +48,27 @@ Other notes (such as licensing, citation, ethical restrictions,
 ## Data Management Checklist
 
 - [ ] Stock-taking: current and future inventory
+    - Space requirements, confidentiality and legal requirements
 - [ ] Assigned responsibilities for data management
+    - Responsibility for enforcement of project data management rules / conventions
 - [ ] Storage and backup systems in place
+    - Regular backups
+    - Off-cluster backups for particularly important data
 - [ ] File organization and naming systems in place
+    - Data versions - naming and storage conventions
+    - Naming, organization and version control for code
 - [ ] Access and security guidelines in place
-- [ ] Documentation guidelines in place
-- [ ] Data management "orientation packet" in place
+    - Tightly controlled access
+    - Understand responsibilities with access
+    - [Is my data confidential](http://security.harvard.edu/dct)?
+    - Data agreements and legal restrictions
+- [ ] Rules, conventions documented
+    - Rules and conventions laid out in easily accessible document
+    - Handed to new joinees as part of their orientation (both at org and project level)
 - [ ] Ethics and privacy concerns addressed
+    - Project IRB review
+    - IRB ethics certifications
+    - Projects involving existing non-public data are usually required to be reviewed by IRB
 
 #### Resources
 

@@ -10,7 +10,7 @@
 
     ```bash
     # Replace "<rce_username>" with your RCE username
-    ssh -Y -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
+    ssh -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
     ```
 
 2. Load `conda` into the shell
@@ -77,7 +77,7 @@
 
     ```bash
     # Replace "<rce_username>" with your RCE username
-    ssh -Y -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
+    ssh -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
     ```
 
 2. Submit Jupyter job
@@ -148,7 +148,7 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     - [file-icons](https://atom.io/packages/file-icons): convenient file icons in tree view
     - [atom-beautify](https://atom.io/packages/atom-beautify): automatically indent / beautify code according to linters
     - [open-recent](https://atom.io/packages/open-recent): open recently opened files / projects
-    - [teletype](https://atom.io/packages/teletype): collaborate on code in real-time (google docs for code)
+    - [teletype](https://atom.io/packages/teletype): collaborate on code in real-time (think google docs for code)
     - [highlight-selected](https://atom.io/packages/highlight-selected): highlight all occurrences of selected word or phrase
     - [minimap](https://atom.io/packages/minimap): mini view of the code on the side
 
