@@ -714,7 +714,7 @@ ssh -Y &lt;rce_username&gt;@rce.hmdc.harvard.edu
 <p>SSH into the cluster, using portforwarding</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Replace &quot;&lt;rce_username&gt;&quot; with your RCE username</span>
-ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.harvard.edu
+ssh -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.harvard.edu
 </pre></div>
 </td></tr></table>
 
@@ -778,7 +778,8 @@ conda install -c conda-forge jupyterlab nodejs
 </pre></div>
 </td></tr></table></p>
 </li>
-<li>Install STATA for Jupyter
+<li>
+<p>Install STATA for Jupyter
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
@@ -789,7 +790,8 @@ python -m stata_kernel.install
 <span class="c1">## Install JupyterLab Extension for Stata syntax highlighting</span>
 jupyter labextension install jupyterlab-stata-highlight
 </pre></div>
-</td></tr></table></li>
+</td></tr></table></p>
+</li>
 <li>Prepare condor submission and connection scripts
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
@@ -908,10 +910,14 @@ condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&
 <li><a href="https://atom.io/packages/hydrogen">hydrogen</a>: run code through jupyter kernels</li>
 <li><a href="https://atom.io/packages/language-stata">language-stata</a>: stata code linting</li>
 </ul>
-<p>Optional (my favourite fun add-ons):</p>
+<p>Optional (my favourite add-ons):</p>
 <ul>
+<li><a href="https://atom.io/packages/tree-view">tree-view</a>: explore files in project</li>
 <li><a href="https://atom.io/packages/file-icons">file-icons</a>: convenient file icons in tree view</li>
 <li><a href="https://atom.io/packages/atom-beautify">atom-beautify</a>: automatically indent / beautify code according to linters</li>
+<li><a href="https://atom.io/packages/open-recent">open-recent</a>: open recently opened files / projects</li>
+<li><a href="https://atom.io/packages/teletype">teletype</a>: collaborate on code in real-time (think google docs for code)</li>
+<li><a href="https://atom.io/packages/highlight-selected">highlight-selected</a>: highlight all occurrences of selected word or phrase</li>
 <li><a href="https://atom.io/packages/minimap">minimap</a>: mini view of the code on the side</li>
 </ul>
 </li>
