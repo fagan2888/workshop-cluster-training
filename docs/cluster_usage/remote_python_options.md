@@ -51,6 +51,7 @@
     conda config --add channels conda-forge
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
+    ```
 
 4. Prepare condor submission and connection scripts
     ```bash
