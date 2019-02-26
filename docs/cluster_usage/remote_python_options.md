@@ -39,8 +39,11 @@
     mkdir cid_env && cd cid_env
     # Create conda environment in the current folder
     conda create --prefix=cid python=3
-    # Edit conda config file ~/.condarc to specify location of environment
-    echo "envs_dirs:\n  - $HOME/shared_space/<path_to_environment>" >> ~/.condarc
+    # Set required environment variables to specify location of environment
+    # Example: export CONDA_ENVS_PATH="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/"
+    # Example: export CONDA_PKGS_DIRS="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/"
+    echo "export CONDA_ENVS_PATH=\"<path_to_environment>\"" >> ~/.bashrc
+    echo "export CONDA_PKGS_DIRS=\"<path_to_packages>\"" >> ~/.bashrc
     # Activate conda environment (can now be done from any folder)
     conda activate cid
     # Install necessary packages
@@ -48,7 +51,6 @@
     conda config --add channels conda-forge
     ## Download required packages
     conda install -c conda-forge jupyterlab nodejs
-    ```
 
 4. Prepare condor submission and connection scripts
     ```bash
