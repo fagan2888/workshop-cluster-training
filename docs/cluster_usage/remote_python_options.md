@@ -129,7 +129,7 @@
 
 #### Setting up the Jupyter Kernel
 
-The steps for setting up the Jupyter kernel are the same as for [*Option 2: Jupyter Lab*](#option-2-jupyter-lab).
+The steps for setting up the Jupyter kernel are the same as for [*Option 1: Jupyter Lab*](#option-1-jupyter-lab).
 
 #### Setting up Atom
 
@@ -142,7 +142,7 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     - [remote-ftp](https://atom.io/packages/remote-ftp): enable browsing remote files
     - [hydrogen](https://atom.io/packages/hydrogen): run code through jupyter kernels
 
-    Optional (my favourite fun add-ons):
+    Optional (my favourite add-ons):
 
     - [tree-view](https://atom.io/packages/tree-view): explore files in project
     - [file-icons](https://atom.io/packages/file-icons): convenient file icons in tree view
@@ -190,7 +190,7 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     [{"name":"RCE Jupyter", "options":{"baseUrl":"http://localhost:8889", "token":"<your_token>"}}]
     ```
 
-### Running Stata through Hydrogen
+### Running Python through Hydrogen
 
 1. Connect to Remote Kernel
 
