@@ -58,37 +58,44 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ssh -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
     ```
 
-2. Load `conda` into the shell
+2. Load `conda` into the shell and set necessary environment variables
 
     !!! warning
         Be careful while editing `~/.bashrc` and `~/.bash_profile` files - they are executed each time your shell opens, and you don't want to mess it up and be unable to access your account.
 
-    Add the following line (exactly as it is, including the period) to your `~/.bashrc`:
+    Add the following lines to your `~/.bashrc` (replace `<path_to_environment>` and `<path_to_packages>`):
 
     ```bash
+    # Start conda
     . /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh
+    # Tell conda where to save and look for environments
+    # Example: export CONDA_ENVS_PATH="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shreyas/utils/envs/"
+    export CONDA_ENVS_PATH="<path_to_environment>"
+    # Tell conda where to save and look for packages
+    # Example: export CONDA_PKGS_DIRS="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shreyas/utils/pkgs/"
+    export CONDA_PKGS_DIRS="<path_to_packages>"
     ```
 
-    If you aren't sure how to do this, run the following command and it'll do it for you:
+    If you aren't sure how to edit your `.bashrc`, run the following commands and it'll do it for you (you still have to replace `<path_to_environment>` and `<path_to_packages>`):
 
     ```bash
     echo ". /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh" >> ~/.bashrc
+    # Set required environment variables to specify location of environment
+    echo "export CONDA_ENVS_PATH=\"<path_to_environment>\"" >> ~/.bashrc
+    echo "export CONDA_PKGS_DIRS=\"<path_to_packages>\"" >> ~/.bashrc
+    ```
+
+    Rerun `.bashrc`:
+    ```bash
+    . ~/.bashrc
     ```
 
 3. Create and prepare a conda environment, and activate it with the following commands:
     ```bash
-    # Navigate to a folder with >10GB available space (one of your shared_space dirs)
-    # Ideally this path should have no spaces
-    # Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/
-    cd ~/shared_space/<rest_of_path>
-    mkdir cid_env && cd cid_env
+    # Navigate to <path_to_environment>
+    cd <path_to_environment>
     # Create conda environment in the current folder
     conda create --prefix=cid python=3
-    # Set required environment variables to specify location of environment
-    # Example: export CONDA_ENVS_PATH="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/"
-    # Example: export CONDA_PKGS_DIRS="/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/"
-    echo "export CONDA_ENVS_PATH=\"<path_to_environment>\"" >> ~/.bashrc
-    echo "export CONDA_PKGS_DIRS=\"<path_to_packages>\"" >> ~/.bashrc
     # Activate conda environment (can now be done from any folder)
     conda activate cid
     # Install necessary packages
@@ -106,7 +113,8 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     ## Install JupyterLab Extension for Stata syntax highlighting
     jupyter labextension install jupyterlab-stata-highlight
     ```
-5. Prepare condor submission and connection scripts
+
+5. Prepare condor submission and connection scripts (replace `<your_token>`)
     ```bash
     # Make a directory somewhere to house the condor scripts
     mkdir -p ~/condorscripts/condorlogs && cd ~/condorscripts
@@ -130,7 +138,7 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
 
     ```bash
     # Replace "<rce_username>" with your RCE username
-    ssh -Y -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
+    ssh -L 8889:localhost:8889 <rce_username>@rce.hmdc.harvard.edu
     ```
 
 2. Submit Jupyter job
@@ -138,10 +146,14 @@ For commonly used commands and introductory tutorials, refer to [RCE documentati
     # Submit condor script
     condor_submit ~/condorscripts/jupyter.submit
     ```
-3. Use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to handle connection errors/closures
+3. Use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to handle connection errors/closures (optional)
     ```bash
     # Start a new tmux window
     tmux new
+    ```
+
+4. Connect to the Jupyter server
+    ```bash
     # SSH to the machine running your jupyter server
     . ~/condorscripts/condorsshrce.sh $USER
     ```
@@ -251,8 +263,8 @@ You can learn some Atom basics [here](https://flight-manual.atom.io/getting-star
     - Open a Stata `.do` file
     - Through the Command Palette, go to "Connect to Remote Kernel".
 
-    ??? note "First-time users"
-        If this is the first time you're connecting, you might be asked to "Authenticate Using Token". To find the authentication token, on an RCE node, type the following:
+    ??? bug "Troubleshooting"
+        If you haven't set a token, you might be asked to "Authenticate Using Token". To find the authentication token, on an RCE node, type the following:
 
         ```bash
         # Activate conda environment
