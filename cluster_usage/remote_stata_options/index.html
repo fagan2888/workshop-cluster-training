@@ -720,21 +720,45 @@ ssh -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.
 
 </li>
 <li>
-<p>Load <code>conda</code> into the shell</p>
+<p>Load <code>conda</code> into the shell and set necessary environment variables</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Be careful while editing <code>~/.bashrc</code> and <code>~/.bash_profile</code> files - they are executed each time your shell opens, and you don't want to mess it up and be unable to access your account.</p>
 </div>
-<p>Add the following line (exactly as it is, including the period) to your <code>~/.bashrc</code>:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh
+<p>Add the following lines to your <code>~/.bashrc</code> (replace <code>&lt;path_to_environment&gt;</code> and <code>&lt;path_to_packages&gt;</code>):</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Start conda</span>
+. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh
+<span class="c1"># Tell conda where to save and look for environments</span>
+<span class="c1"># Example: export CONDA_ENVS_PATH=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shreyas/utils/envs/&quot;</span>
+<span class="nb">export</span> <span class="nv">CONDA_ENVS_PATH</span><span class="o">=</span><span class="s2">&quot;&lt;path_to_environment&gt;&quot;</span>
+<span class="c1"># Tell conda where to save and look for packages</span>
+<span class="c1"># Example: export CONDA_PKGS_DIRS=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shreyas/utils/pkgs/&quot;</span>
+<span class="nb">export</span> <span class="nv">CONDA_PKGS_DIRS</span><span class="o">=</span><span class="s2">&quot;&lt;path_to_packages&gt;&quot;</span>
 </pre></div>
 </td></tr></table>
 
-<p>If you aren't sure how to do this, run the following command and it'll do it for you:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh&quot;</span> &gt;&gt; ~/.bashrc
+<p>If you aren't sure how to edit your <code>.bashrc</code>, run the following commands and it'll do it for you (you still have to replace <code>&lt;path_to_environment&gt;</code> and <code>&lt;path_to_packages&gt;</code>):</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;. /nfs/tools/lib/anaconda/3-5.2.0/etc/profile.d/conda.sh&quot;</span> &gt;&gt; ~/.bashrc
+<span class="c1"># Set required environment variables to specify location of environment</span>
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_ENVS_PATH=\&quot;&lt;path_to_environment&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="nb">echo</span> <span class="s2">&quot;export CONDA_PKGS_DIRS=\&quot;&lt;path_to_packages&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
 </pre></div>
 </td></tr></table>
 
+<p>Rerun <code>.bashrc</code>:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>. ~/.bashrc
+</pre></div>
+</td></tr></table></p>
 </li>
 <li>
 <p>Create and prepare a conda environment, and activate it with the following commands:
@@ -748,26 +772,10 @@ ssh -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.
  8
  9
 10
-11
-12
-13
-14
-15
-16
-17
-18
-19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to a folder with &gt;10GB available space (one of your shared_space dirs)</span>
-<span class="c1"># Ideally this path should have no spaces</span>
-<span class="c1"># Example: cd ~/shared_space/cid_saudi/shreyas/misc/envs/</span>
-<span class="nb">cd</span> ~/shared_space/&lt;rest_of_path&gt;
-mkdir cid_env <span class="o">&amp;&amp;</span> <span class="nb">cd</span> cid_env
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Navigate to &lt;path_to_environment&gt;</span>
+<span class="nb">cd</span> &lt;path_to_environment&gt;
 <span class="c1"># Create conda environment in the current folder</span>
 conda create --prefix<span class="o">=</span>cid <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
-<span class="c1"># Set required environment variables to specify location of environment</span>
-<span class="c1"># Example: export CONDA_ENVS_PATH=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/envs/&quot;</span>
-<span class="c1"># Example: export CONDA_PKGS_DIRS=&quot;/nfs/projects_nobackup_ci3/m/ci3_mastercard/shared_space/ci3_mastercard/shreyas/utils/pkgs/&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;export CONDA_ENVS_PATH=\&quot;&lt;path_to_environment&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
-<span class="nb">echo</span> <span class="s2">&quot;export CONDA_PKGS_DIRS=\&quot;&lt;path_to_packages&gt;\&quot;&quot;</span> &gt;&gt; ~/.bashrc
 <span class="c1"># Activate conda environment (can now be done from any folder)</span>
 conda activate cid
 <span class="c1"># Install necessary packages</span>
@@ -792,7 +800,8 @@ jupyter labextension install jupyterlab-stata-highlight
 </pre></div>
 </td></tr></table></p>
 </li>
-<li>Prepare condor submission and connection scripts
+<li>
+<p>Prepare condor submission and connection scripts (replace <code>&lt;your_token&gt;</code>)
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
@@ -823,7 +832,8 @@ curl -O https://raw.githubusercontent.com/cid-harvard/workshop-cluster-training/
 <span class="c1"># Example: sed -i &#39;s/my_token/example_token/&#39; run_jupyter.sh</span>
 sed -i <span class="s1">&#39;s/my_token/&lt;your_token&gt;/&#39;</span> run_jupyter.sh
 </pre></div>
-</td></tr></table></li>
+</td></tr></table></p>
+</li>
 </ol>
 <h3 id="running-stata-through-jupyter">Running Stata through Jupyter<a class="headerlink" href="#running-stata-through-jupyter" title="Permanent link">&para;</a></h3>
 <ol>
@@ -831,7 +841,7 @@ sed -i <span class="s1">&#39;s/my_token/&lt;your_token&gt;/&#39;</span> run_jupy
 <p>SSH into the cluster, using portforwarding (if you haven't yet)</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Replace &quot;&lt;rce_username&gt;&quot; with your RCE username</span>
-ssh -Y -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.harvard.edu
+ssh -L <span class="m">8889</span>:localhost:8889 &lt;rce_username&gt;@rce.hmdc.harvard.edu
 </pre></div>
 </td></tr></table>
 
@@ -845,13 +855,17 @@ condor_submit ~/condorscripts/jupyter.submit
 </td></tr></table></p>
 </li>
 <li>
-<p>Use <a href="https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/">tmux</a> to handle connection errors/closures
+<p>Use <a href="https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/">tmux</a> to handle connection errors/closures (optional)
     <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Start a new tmux window</span>
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Start a new tmux window</span>
 tmux new
-<span class="c1"># SSH to the machine running your jupyter server</span>
+</pre></div>
+</td></tr></table></p>
+</li>
+<li>
+<p>Connect to the Jupyter server
+    <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># SSH to the machine running your jupyter server</span>
 . ~/condorscripts/condorsshrce.sh <span class="nv">$USER</span>
 </pre></div>
 </td></tr></table></p>
@@ -988,7 +1002,7 @@ condor_rm -name <span class="s2">&quot;&lt;machine_name&gt;&quot;</span> &lt;ID&
 <li>Open a Stata <code>.do</code> file</li>
 <li>Through the Command Palette, go to "Connect to Remote Kernel".</li>
 </ul>
-<details class="note"><summary>First-time users</summary><p>If this is the first time you're connecting, you might be asked to "Authenticate Using Token". To find the authentication token, on an RCE node, type the following:</p>
+<details class="bug"><summary>Troubleshooting</summary><p>If you haven't set a token, you might be asked to "Authenticate Using Token". To find the authentication token, on an RCE node, type the following:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
