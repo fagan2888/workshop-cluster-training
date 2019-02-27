@@ -2,3 +2,5 @@
 /site/
 assets/test.do
 assets/test.py
+slides/*.png
+additional_notes.md
